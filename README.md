@@ -33,11 +33,13 @@ redmine_chan_proj_mapping:
 Usage
 =====
 **Redmine ticket links**: If you mention a redmine issue number in the format #1234, then JebBot will attempt to look that ticket up in redmine and provide a link to it.
+
 ```<someuser> you can query the link to a bug by saying #1234 anywhere within a statement
 <PmxBot> someuser: http://yourredmineurl.com/issues/1234
 ```
 
 **Redmine ticket details**: If you would like a short synopsis of a redmine issue, you can use the !bug command to look it up
+
 ```<someuser> !bug 1234
 <PmxBot> someuser: 1234 is http://yourredmineurl.com/issues/1234 "Some Project - Broken: The widget in the coo interface cannot be clicked" It's status is New and is assigned to SomeDeveloper
 ```
