@@ -24,8 +24,8 @@ redmine_chan_proj_mapping:
     - "someotherproject"
 ```
 
-*redmine_apikey*: should be set to a valid API key in redmine that has access to every redmine project that the bot will read from
+**redmine_apikey**: should be set to a valid API key in redmine that has access to every redmine project that the bot will read from
 
-*redmine_url*: should be set to the URL that your redmine install is located at
+**redmine_url**: should be set to the URL that your redmine install is located at
 
-*redmine_chan_proj_mapping*: determines what IRC channels are allowed to get data from what redmine projects. The intent here is that you can allow some projects to be queried from one channel while only allowing other projects to be queried from other channels. The channels should be input exactly as they would be in IRC (including the # if it is part of the channel name). The projects that are listed are the project identifier (not the project name)
+**redmine_chan_proj_mapping**: determines what IRC channels are allowed to get data from what redmine projects. The intent here is that you can allow some projects to be queried from one channel while only allowing other projects to be queried from other channels. The channels should be input exactly as they would be in IRC (including the # if it is part of the channel name). The projects that are listed are the project identifier (not the project name)
