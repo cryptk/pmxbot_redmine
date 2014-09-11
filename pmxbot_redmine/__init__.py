@@ -137,7 +137,7 @@ def redmine_bug(client, event, channel, nick, rest):
 
 
 
-@contains('jebbot', channels='unlogged', rate=.05)
+@contains(pmxbot.config.bot_nickname, channels='unlogged', rate=.05)
 def kerbal_quote(client, event, channel, nick, rest):
     quotes = ['Moar Boosters!!!',
               'Scott Manley: But that will have to wait for the next episode',
