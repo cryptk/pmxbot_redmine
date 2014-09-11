@@ -41,5 +41,5 @@ Usage
 **Redmine ticket details**: If you would like a short synopsis of a redmine issue, you can use the !bug command to look it up
 ```
 <someuser> !bug 1234
-<PmxBot> someuser: 1234 is http://yourredmineurl.com/issues/1234 "Some Project - Broken: The widget in the coo interface cannot be clicked" It's status is New and is assigned to SomeDeveloper
+<PmxBot> someuser: 1234 is http://yourredmineurl.com/issues/1234 "Some Project - Broken: The widget in the foo interface cannot be clicked" It's status is New and is assigned to SomeDeveloper
 ```
