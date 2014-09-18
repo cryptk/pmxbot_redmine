@@ -100,7 +100,7 @@ def redmine_bug(client, event, channel, nick, rest):
         return
     ticket = projectChanWhitelist(rest, channel)
     if ticket is not None:
-        yield ("%s: %s is %sissues/%s \"%s - %s: %s\" It's status is %s and is assigned to %s" % (nick, ticket['issue']['id'], pmxbot.config.redmine_url, ticket['issue']['id'], ticket['issue']['project']['name'], ticket['issue']['tracker']['name'], ticket['issue']['subject'], ticket['issue']['status']['name'], ticket['issue']['assigned_to']['name']))
+        yield ("%s: %s is %sissues/%s \"%s - %s: %s\". Its status is %s and is assigned to %s" % (nick, ticket['issue']['id'], pmxbot.config.redmine_url, ticket['issue']['id'], ticket['issue']['project']['name'], ticket['issue']['tracker']['name'], ticket['issue']['subject'], ticket['issue']['status']['name'], ticket['issue']['assigned_to']['name']))
 
 #@command('redmine', aliases=('rm'))
 #def redminestatus(client, event, channel, nick, rest):
