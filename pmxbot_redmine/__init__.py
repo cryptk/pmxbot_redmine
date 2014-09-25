@@ -87,7 +87,7 @@ def projectChanWhitelist(ticketNum, channel):
     ticket = getticket(ticketNum)
     ticketId = ticket['issue']['project']['id']
     try:
-        if pIds[ticketID] in pmxbot.config.redmine_chan_proj_mapping[channel]:
+        if pIds[ticketId] in pmxbot.config.redmine_chan_proj_mapping[channel]:
             return ticket
     except:
         pass
@@ -103,10 +103,13 @@ def redmine(client, event, channel, nick, tickets):
     ticklist = []
     for ticketnum in tickets:
         ticket = projectChanWhitelist(ticketnum, channel)
+        print ticket
         if ticket is not None:
             ticklist.append(ticket)
     for tick in ticklist:
+        print tick
         if tick is not None:
+            print "test"
             yield ("%s: %sissues/%s" %
                    (nick, pmxbot.config.redmine_url, tick['issue']['id']))
 
@@ -121,13 +124,14 @@ def redmine_bug(client, event, channel, nick, rest):
     ticket = p.match(rest).group(1)
     if not ticket.isdigit():
         return
-    ticket = projectChanWhitelist(ticket, channel)
-    if ticket is not None:
-        yield ("%s: %s is %sissues/%s \"%s - %s: %s\". Its status is %s and ",
+    tick = projectChanWhitelist(ticket, channel)
+    if tick is not None:
+        print nick
+        print tick
+        yield ("%s: %s is %sissues/%s \"%s - %s: %s\". Its status is %s and "
                "is assigned to %s" %
-               (nick, ticket['issue']['id'], pmxbot.config.redmine_url,
-                   ticket['issue']['id'], ticket['issue']['project']['name'],
-                   ticket['issue']['tracker']['name'],
-                   ticket['issue']['subject'],
-                   ticket['issue']['status']['name'],
-                   ticket['issue']['assigned_to']['name']))
+               (nick, tick['issue']['id'], pmxbot.config.redmine_url,
+               tick['issue']['id'], tick['issue']['project']['name'],
+               tick['issue']['tracker']['name'], tick['issue']['subject'],
+               tick['issue']['status']['name'],
+               tick['issue']['assigned_to']['name']))
