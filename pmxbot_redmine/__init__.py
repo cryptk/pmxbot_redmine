@@ -96,9 +96,9 @@ def projectChanWhitelist(ticketNum, channel):
 
 @regexpfind("redmine", r"#(\d+)")
 def redmine(client, event, channel, nick, tickets):
-    if not pmxbot.config.redmine_apikey or
-    not pmxbot.config.redmine_url or
-    not pmxbot.config.redmine_chan_proj_mapping:
+    if (not pmxbot.config.redmine_apikey or not
+            pmxbot.config.redmine_url or not
+            pmxbot.config.redmine_chan_proj_mapping):
         return
     ticklist = []
     for ticketnum in tickets:
@@ -113,9 +113,9 @@ def redmine(client, event, channel, nick, tickets):
 
 @command("bug")
 def redmine_bug(client, event, channel, nick, rest):
-    if not pmxbot.config.redmine_apikey or
-    not pmxbot.config.redmine_url or
-    not pmxbot.config.redmine_chan_proj_mapping:
+    if (not pmxbot.config.redmine_apikey or not
+            pmxbot.config.redmine_url or not
+            pmxbot.config.redmine_chan_proj_mapping):
         return
     p = re.compile('(\d+).*')
     ticket = p.match(rest).group(1)
