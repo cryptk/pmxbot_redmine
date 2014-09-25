@@ -96,9 +96,11 @@ def redmine(client, event, channel, nick, tickets):
 def redmine_bug(client, event, channel, nick, rest):
     if not pmxbot.config.redmine_apikey or not pmxbot.config.redmine_url or not pmxbot.config.redmine_chan_proj_mapping:
         return
-    if not rest.isdigit():
+    p = re.compile('(\d+).*')
+    ticket = p.match(rest).group(1)
+    if not ticket.isdigit():
         return
-    ticket = projectChanWhitelist(rest, channel)
+    ticket = projectChanWhitelist(ticket, channel)
     if ticket is not None:
         yield ("%s: %s is %sissues/%s \"%s - %s: %s\". Its status is %s and is assigned to %s" % (nick, ticket['issue']['id'], pmxbot.config.redmine_url, ticket['issue']['id'], ticket['issue']['project']['name'], ticket['issue']['tracker']['name'], ticket['issue']['subject'], ticket['issue']['status']['name'], ticket['issue']['assigned_to']['name']))
 
