@@ -85,7 +85,10 @@ def projectChanWhitelist(ticketNum, channel):
     pjson = getprojects()
     pIds = {p['id']: p['identifier'] for p in pjson['projects']}
     ticket = getticket(ticketNum)
-    ticketId = ticket['issue']['project']['id']
+    try:
+        ticketId = ticket['issue']['project']['id']
+    except TypeError:
+        return
     try:
         if pIds[ticketId] in pmxbot.config.redmine_chan_proj_mapping[channel]:
             return ticket
@@ -109,7 +112,6 @@ def redmine(client, event, channel, nick, tickets):
     for tick in ticklist:
         print tick
         if tick is not None:
-            print "test"
             yield ("%s: %sissues/%s" %
                    (nick, pmxbot.config.redmine_url, tick['issue']['id']))
 
