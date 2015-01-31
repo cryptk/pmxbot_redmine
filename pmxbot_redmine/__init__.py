@@ -106,11 +106,9 @@ def redmine(client, event, channel, nick, tickets):
     ticklist = []
     for ticketnum in tickets:
         ticket = projectChanWhitelist(ticketnum, channel)
-        print ticket
         if ticket is not None:
             ticklist.append(ticket)
     for tick in ticklist:
-        print tick
         if tick is not None:
             yield ("%s: %sissues/%s" %
                    (nick, pmxbot.config.redmine_url, tick['issue']['id']))
@@ -128,8 +126,6 @@ def redmine_bug(client, event, channel, nick, rest):
         return
     tick = projectChanWhitelist(ticket, channel)
     if tick is not None:
-        print nick
-        print tick
         yield ("%s: %s is %sissues/%s \"%s - %s: %s\". Its status is %s and "
                "is assigned to %s" %
                (nick, tick['issue']['id'], pmxbot.config.redmine_url,
