@@ -2,7 +2,7 @@ import setuptools
 
 setup_params = dict(
     name="pmxbot-redmine",
-    version = "0.6.6",
+    version = "0.7.2",
     packages=setuptools.find_packages(),
     entry_points=dict(
         pmxbot_handlers = [

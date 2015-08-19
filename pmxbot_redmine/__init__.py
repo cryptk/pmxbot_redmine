@@ -63,7 +63,7 @@ def getticket(ticketnum):
 def getprojects():
     h = httplib2.Http(".cache")
     try:
-        resp, content = h.request("%sprojects.json" %
+        resp, content = h.request("%s/projects.json" %
                                   (pmxbot.config.redmine_url), "GET",
                                   headers={'X-Redmine-API-Key':
                                            pmxbot.config.redmine_apikey})
@@ -79,6 +79,36 @@ def getprojects():
         return ("Received invalid json from %sprojects.json" %
                 (pmxbot.config.redmine_url))
     return pjson
+
+
+@command("build")
+def getlatestbuild(client, event, channel, nick, rest):
+    if (not pmxbot.config.redmine_apikey or not
+            pmxbot.config.redmine_url or not
+            pmxbot.config.redmine_chan_proj_mapping or not
+            pmxbot.config.redmine_default_project):
+        return
+
+    h = httplib2.Http(".cache")
+    try:
+        resp, content = h.request("%s/projects/%s/versions.json" %
+                                  (pmxbot.config.redmine_url,
+                                   pmxbot.config.redmine_default_project),
+                                  "GET",
+                                  headers={'X-Redmine-API-Key':
+                                           pmxbot.config.redmine_apikey})
+    except:
+        log.exception("Error retrieving builds")
+    if resp['status'] == '404':
+        return
+    if resp['status'] == '403':
+        return
+    try:
+        latest_build = json.loads(content)['versions'][-2]['name']
+    except ValueError:
+        yield ("Received invalid json from %s/projects/%s/versions.json" %
+                (pmxbot.config.redmine_url, pmxbot.config.redmine_default_project))
+    yield ("The latest version is: %s" % (latest_build))
 
 
 def projectChanWhitelist(ticketNum, channel):
@@ -106,11 +136,9 @@ def redmine(client, event, channel, nick, tickets):
     ticklist = []
     for ticketnum in tickets:
         ticket = projectChanWhitelist(ticketnum, channel)
-        print ticket
         if ticket is not None:
             ticklist.append(ticket)
     for tick in ticklist:
-        print tick
         if tick is not None:
             yield ("%s: %sissues/%s" %
                    (nick, pmxbot.config.redmine_url, tick['issue']['id']))
@@ -128,8 +156,6 @@ def redmine_bug(client, event, channel, nick, rest):
         return
     tick = projectChanWhitelist(ticket, channel)
     if tick is not None:
-        print nick
-        print tick
         yield ("%s: %s is %sissues/%s \"%s - %s: %s\". Its status is %s and "
                "is assigned to %s" %
                (nick, tick['issue']['id'], pmxbot.config.redmine_url,
