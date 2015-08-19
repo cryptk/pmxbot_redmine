@@ -51,9 +51,9 @@ def getticket(ticketnum):
     if resp['status'] == '403':
         return
     try:
-        tjson = json.loads(content)
+        tjson = json.loads(content.decode('utf-8'))
     except ValueError:
-        return ("Received invalid json from %sissues/%s.json" %
+        return ("Received invalid json from %s/issues/%s.json" %
                 (pmxbot.config.redmine_url, tnumber))
     if 'assigned_to' not in tjson['issue']:
         tjson['issue']['assigned_to'] = {'name': 'nobody'}
@@ -74,9 +74,9 @@ def getprojects():
     if resp['status'] == '403':
         return
     try:
-        pjson = json.loads(content)
+        pjson = json.loads(content.decode('utf-8'))
     except ValueError:
-        return ("Received invalid json from %sprojects.json" %
+        return ("Received invalid json from %s/projects.json" %
                 (pmxbot.config.redmine_url))
     return pjson
 
@@ -104,7 +104,7 @@ def getlatestbuild(client, event, channel, nick, rest):
     if resp['status'] == '403':
         return
     try:
-        latest_build = json.loads(content)['versions'][-2]['name']
+        latest_build = json.loads(content.decode('utf-8'))['versions'][-2]['name']
     except ValueError:
         yield ("Received invalid json from %s/projects/%s/versions.json" %
                 (pmxbot.config.redmine_url, pmxbot.config.redmine_default_project))
